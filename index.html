@@ -112,7 +112,7 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .toast{position:fixed;z-index:80;left:50%;top:calc(var(--alto-nav) + 12px);padding:10px 18px;border-radius:999px;font-size:15px;opacity:0;transform:translate(-50%,-12px);transition:opacity .3s ease,transform .35s var(--curva);pointer-events:none}
 .toast.ver{opacity:1;transform:translate(-50%,0)}
 
-.app{max-width:640px;margin:0 auto;padding:0 16px calc(130px + env(safe-area-inset-bottom))}
+.app{max-width:640px;margin:0 auto;padding:0 16px}
 
 /* Bienvenida, al estilo de una app en el App Store */
 .ficha-top{display:flex;gap:18px;align-items:center;padding-top:4px}
@@ -121,11 +121,12 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .ficha-txt{flex:1;min-width:0;max-width:300px;display:flex;flex-direction:column;align-items:center;text-align:center}
 .ficha h1{margin:0;font-size:inherit;font-weight:400;width:100%}
 .logo{width:100%;height:auto}
-.lema{display:block;margin:6px 0 0;font:600 12px/1 var(--f-ui);letter-spacing:.32em;text-transform:uppercase;color:var(--crema);padding-left:.32em}
-.sub{display:block;margin-top:7px;font:400 14px/1.35 var(--f-ui);color:var(--texto2)}
-.pill{display:inline-flex;align-items:center;justify-content:center;height:36px;padding:0 24px;border:0;border-radius:999px;background:var(--rojo);color:#fff;font:600 15px/1 var(--f-ui);letter-spacing:.03em;text-decoration:none;text-transform:uppercase;cursor:pointer;transition:transform .2s var(--curva)}
+.lema{display:block;white-space:nowrap;margin:6px 0 0;font:600 12px/1 var(--f-ui);letter-spacing:.32em;text-transform:uppercase;color:var(--crema);padding-left:.32em}
+.sub{display:block;margin-top:7px;text-wrap:balance;font:400 14px/1.35 var(--f-ui);color:var(--texto2)}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 24px;border:0;border-radius:999px;background:var(--rojo);color:#fff;font:600 15px/1 var(--f-ui);letter-spacing:.03em;text-decoration:none;text-transform:uppercase;cursor:pointer;transition:transform .2s var(--curva)}
 .pill:active,.boton:active{transform:scale(.95)}
-.ficha .pill{margin-top:14px}
+.ficha .pill{margin-top:14px;padding:0 20px 0 16px}
+.pill svg{width:17px;height:17px;stroke-width:2.4}
 
 /* Bloques */
 .bloque{margin-top:30px}
@@ -136,22 +137,49 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .grupo{list-style:none;margin:0;padding:0;background:var(--celda);border-radius:var(--radio);overflow:hidden}
 
 /* Categorías con foto, como en Pedix */
-.categorias{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0;padding:0;list-style:none}
+.categorias{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0;padding:0;list-style:none}
 .categorias .ancha{grid-column:1/-1}
 .cat{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;width:100%;aspect-ratio:16/11;padding:10px;border:0;border-radius:20px;overflow:hidden;background:#141416;color:#fff;text-align:center;cursor:pointer}
 .ancha .cat{aspect-ratio:16/6.5}
 .cat img,.cat .arte{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--curva)}
 .cat::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.6))}
 .cat:active img,.cat:active .arte{transform:scale(1.06)}
-.cat b{font:600 19px/1.1 var(--f-ui);letter-spacing:.03em;text-transform:uppercase;text-shadow:0 2px 12px rgba(0,0,0,.65)}
+.cat b{text-wrap:balance;font:600 clamp(15px,4.8vw,19px)/1.1 var(--f-ui);letter-spacing:.03em;text-transform:uppercase;text-shadow:0 2px 12px rgba(0,0,0,.65)}
 .cat small{padding:4px 10px;border-radius:999px;background:var(--crema);color:#111;font-size:12px;font-weight:600}
 .cat .arte{display:flex;align-items:flex-end;justify-content:center;gap:3%;padding-top:16%}
 .cat .arte .botella{height:80%;width:auto}
 
+/* Promos y combos */
+.combos{display:flex;gap:12px;margin:0 -16px;padding:0 16px;list-style:none;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 16px;scrollbar-width:none;overscroll-behavior-x:contain}
+.combos::-webkit-scrollbar{display:none}
+.combos::after{content:"";flex:0 0 4px}
+.combo{position:relative;flex:0 0 min(300px,80%);scroll-snap-align:start}
+.combo-card{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:flex-start;width:100%;height:188px;padding:16px;border:.5px solid rgba(255,255,255,.08);border-radius:24px;overflow:hidden;background:radial-gradient(130% 120% at 100% 0%,var(--tinte) 0%,#1c1c1e 62%);color:#fff;text-align:left;cursor:pointer}
+.combo-card:active .combo-arte{transform:scale(1.04)}
+.combo-chips{display:flex;gap:6px}
+.combo-chips span{padding:4px 10px;border-radius:999px;background:var(--crema);color:#111;font-size:12px;font-weight:600}
+.combo-chips .mas18{background:rgba(0,0,0,.45);color:#fff}
+.combo-card strong{max-width:62%;margin-top:10px;font:400 28px/1 var(--f-marca);color:var(--crema);text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.combo-card small{max-width:56%;margin-top:6px;font-size:14px;line-height:1.3;color:var(--texto2)}
+.combo-precio{display:flex;align-items:baseline;gap:8px;margin-top:auto}
+.combo-precio b{font:600 20px/1 var(--f-ui);color:#fff}
+.combo-precio s{font-size:14px;color:var(--texto3)}
+.combo-arte{position:absolute;z-index:-1;right:-30px;top:6px;width:150px;height:150px;transition:transform .5s var(--curva)}
+.combo-arte img{width:138px;height:138px;border-radius:50%;object-fit:cover;box-shadow:0 18px 30px -12px rgba(0,0,0,.8)}
+.combo-arte .botella{position:absolute;bottom:26px;width:auto;height:74px;filter:drop-shadow(0 8px 10px rgba(0,0,0,.55))}
+.combo-arte .botella:nth-of-type(1){left:-18px}
+.combo-arte .botella:nth-of-type(2){left:8px}
+.combo-arte .botella:nth-of-type(3){left:34px}
+.combo-arte .copo{position:absolute;left:-12px;bottom:34px;width:46px;height:46px;border-radius:50%;background:var(--crema);color:#1f6fb2;display:grid;place-items:center;box-shadow:0 10px 20px -8px rgba(0,0,0,.7)}
+.combo-arte .copo svg{width:24px;height:24px}
+.combo .control{top:auto;bottom:14px;right:14px}
+
 /* Pantalla de cada categoría: entra desde la derecha, como en iPhone */
-.pantalla{width:100%;max-width:100%;height:100%;max-height:100%;margin:0;padding:0;border:0;background:var(--negro);color:var(--texto);overflow:hidden}
-.pantalla::backdrop{background:#000}
-.pantalla-in{height:100%;overflow-y:auto;overscroll-behavior:contain;outline:none;animation:entrar .42s var(--curva)}
+.pantalla{width:100%;max-width:100%;height:100%;max-height:100%;margin:0;padding:0;border:0;background:transparent;color:var(--texto);overflow:hidden}
+.pantalla::backdrop{background:rgba(0,0,0,.6);animation:velo .42s ease}
+.pantalla.cerrando::backdrop{opacity:0;transition:opacity .3s ease}
+@keyframes velo{from{opacity:0}}
+.pantalla-in{height:100%;overflow-y:auto;overscroll-behavior:contain;outline:none;background:var(--negro);box-shadow:-24px 0 48px rgba(0,0,0,.55);animation:entrar .42s var(--curva)}
 .pantalla.cerrando .pantalla-in{animation:salir .3s ease-in forwards}
 @keyframes entrar{from{transform:translateX(100%)}}
 @keyframes salir{to{transform:translateX(100%)}}
@@ -167,7 +195,7 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .segmento label:has(input:checked){background:var(--rojo);color:#fff}
 .segmento label:has(input:focus-visible){outline:3px solid var(--rojo-texto);outline-offset:2px}
 .segmento svg{width:17px;height:17px}
-.modo-ayuda{margin:0 4px 12px;font-size:14px;color:var(--texto2)}
+.modo-ayuda{text-wrap:pretty;margin:0 4px 12px;font-size:14px;color:var(--texto2)}
 .promos{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px;padding:0;list-style:none}
 .promos li{padding:6px 12px;border-radius:999px;background:var(--celda);font-size:14px;color:var(--texto2)}
 .promos b{color:var(--crema);font-weight:600}
@@ -184,13 +212,14 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .prod-foto{position:relative;flex:none;width:92px;height:92px;border-radius:18px;overflow:hidden;background:#141416;display:grid;place-items:center}
 .prod-foto img{width:100%;height:100%;object-fit:cover}
 .prod-foto .botella{width:auto;height:80%;filter:drop-shadow(0 8px 10px rgba(0,0,0,.45))}
-.sumar{position:absolute;right:10px;top:76px;min-width:36px;height:36px;padding:0 10px;border-radius:999px;display:grid;place-items:center;font:600 15px/1 var(--f-ui);color:#fff;cursor:pointer;touch-action:manipulation;transition:background-color .25s ease,transform .2s var(--curva)}
-.sumar:active{transform:scale(.9)}
-.sumar svg{width:18px;height:18px;stroke-width:2.6}
-.item.elegida .sumar{background:var(--rojo);border-color:transparent}
-.sumar .cant{display:none}
-.item.elegida .sumar .cant{display:block}
-.item.elegida .sumar svg{display:none}
+/* El + de cada producto: cuando ya hay en el pedido se abre en − cantidad + */
+.control{--b:36px;position:absolute;right:10px;top:76px;display:flex;align-items:center;justify-content:flex-end;width:var(--b);height:36px;border-radius:999px;overflow:hidden;transition:width .3s var(--curva),background-color .25s ease}
+.control button{flex:none;width:var(--b);height:36px;padding:0;border:0;border-radius:999px;background:none;color:#fff;display:grid;place-items:center;cursor:pointer;touch-action:manipulation}
+.control button:active{background:rgba(255,255,255,.2)}
+.control svg{width:18px;height:18px;stroke-width:2.6}
+.control .cant{flex:none;width:32px;text-align:center;font:600 16px/1 var(--f-ui);color:#fff}
+.item:not(.elegida) .control .restar,.item:not(.elegida) .control .cant{visibility:hidden}
+.item.elegida .control{width:calc(var(--b) * 2 + 33px);background:var(--rojo);border-color:transparent}
 .salto{animation:salto .32s var(--curva)}
 @keyframes salto{40%{transform:scale(1.18)}}
 
@@ -245,14 +274,48 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke
 
 /* Tu pedido */
 .fila{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:8px 10px 8px 16px;position:relative}
-.fila+.fila::before,.campo+.campo::before,.lista li+li::before{content:"";position:absolute;top:0;left:16px;right:0;height:.5px;background:var(--sep)}
+.fila+.fila::before,.campo+.campo::before{content:"";position:absolute;top:0;left:16px;right:0;height:.5px;background:var(--sep)}
 .fila .rotulo{flex:1;min-width:0}
+.rotulo small{display:block;font-size:13px;line-height:1.3;color:var(--texto2)}
 .fila.vacia{color:var(--texto2);padding:14px 16px}
 .fila.titulo-fila{min-height:0;padding:14px 16px 4px;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--texto2)}
 .fila.titulo-fila+.fila::before{display:none}
 .fila.total{padding-right:16px}
-.fila.total strong{font:400 26px/1 var(--f-marca);color:var(--crema)}
+.fila.extra{min-height:44px;padding-right:16px;font-size:15px;color:var(--texto2)}
+.fila.total strong{font:400 26px/1 var(--f-marca);color:var(--crema);transform-origin:right center}
 .campos{margin-top:14px}
+/* Aviso de promo en Tu pedido: cuánto sale la próxima o cuánto se ahorran */
+.aviso{margin-top:12px;padding:14px 16px;border-radius:var(--radio);background:linear-gradient(135deg,#d8130f 0%,#8e0a0b 100%);box-shadow:0 16px 32px -16px rgba(207,13,15,.8);color:#fff}
+.aviso.pop{animation:pop .5s var(--curva)}
+@keyframes pop{from{transform:scale(.92);opacity:.3}}
+.aviso-cabeza{display:flex;align-items:center;gap:12px}
+.aviso-ico{flex:none;width:40px;height:40px;border-radius:50%;background:var(--crema);color:var(--rojo);display:grid;place-items:center}
+.aviso-ico svg{width:21px;height:21px;stroke-width:2.4}
+.aviso-txt b{display:block;font:400 21px/1.1 var(--f-marca);color:var(--crema)}
+.aviso-txt span{display:block;margin-top:3px;font-size:15px;line-height:1.3;color:rgba(255,255,255,.92)}
+.aviso-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.aviso-chips button{display:inline-flex;align-items:center;gap:4px;height:34px;padding:0 13px 0 9px;border:0;border-radius:999px;background:rgba(255,255,255,.18);color:#fff;font:500 14px/1 var(--f-ui);cursor:pointer;touch-action:manipulation}
+.aviso-chips button:active{background:rgba(255,255,255,.32)}
+.aviso-chips svg{width:15px;height:15px;stroke-width:2.6}
+#pantalla-pedido .pantalla-cuerpo{padding-bottom:calc(32px + env(safe-area-inset-bottom))}
+.pie.centrado{margin-top:12px;text-align:center}
+
+/* ¿Y para tomar? (aparece en Tu pedido si no eligieron bebida) */
+.tentar{margin-top:16px;padding:18px 0 14px;border-radius:var(--radio);background:radial-gradient(120% 90% at 50% 0%,#3d0d0d 0%,var(--celda) 65%);border:.5px solid rgba(255,255,255,.08)}
+.tentar h3{margin:0 18px;font:400 24px/1.1 var(--f-marca);color:var(--crema)}
+.tentar > p{margin:4px 18px 0;font-size:15px;color:var(--texto2)}
+.tentar .pie{margin:10px 18px 0;font-size:13px;color:var(--texto3)}
+.tira{display:flex;gap:10px;margin:14px 0 0;padding:0 18px;list-style:none;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 18px;scrollbar-width:none;overscroll-behavior-x:contain}
+.tira::-webkit-scrollbar{display:none}
+.tira::after{content:"";flex:0 0 8px}
+.tira li{position:relative;flex:0 0 108px;scroll-snap-align:start}
+.beb{display:block;width:100%;padding:0;border:0;background:none;color:inherit;text-align:left;cursor:pointer}
+.beb-foto{display:grid;place-items:center;height:108px;border-radius:18px;overflow:hidden;transition:transform .2s var(--curva)}
+.beb:active .beb-foto{transform:scale(.96)}
+.beb-foto .botella{width:auto;height:76%;filter:drop-shadow(0 8px 10px rgba(0,0,0,.45))}
+.beb strong{display:block;margin-top:8px;font-size:15px;font-weight:500;line-height:1.2}
+.beb .precio{display:block;margin-top:2px;font-size:14px;font-weight:600;color:var(--crema)}
+.tira .control{--b:34px;top:68px;right:4px}
 .boton{display:flex;align-items:center;justify-content:center;gap:10px;height:56px;margin-top:16px;border:0;border-radius:999px;background:var(--rojo);color:#fff;font:600 17px/1 var(--f-ui);text-decoration:none;cursor:pointer;transition:transform .2s var(--curva)}
 
 /* Quiénes somos */
@@ -271,11 +334,7 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .redes a.wa{background:var(--rojo)}
 .redes svg{width:19px;height:19px}
 
-/* Cómo funciona y mapa */
-.lista li{display:flex;align-items:center;gap:14px;padding:12px 16px;position:relative}
-.lista li+li::before{left:60px}
-.lista strong{display:block;font-weight:500}
-.lista small{display:block;font-size:14px;line-height:1.35;color:var(--texto2)}
+/* Mapa */
 .ico{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:var(--rojo);color:#fff;flex:none}
 .ico svg{width:18px;height:18px}
 .mapa iframe{display:block;width:100%;height:220px;border:0;filter:invert(.9) hue-rotate(180deg) saturate(.75) contrast(.95)}
@@ -284,16 +343,26 @@ a.fila:active{background:rgba(255,255,255,.06)}
 .fila .chevron{width:16px;height:16px;color:var(--texto3);stroke-width:2.6}
 .fila.apagada .rotulo{color:var(--texto2)}
 
-footer{max-width:640px;margin:36px auto 0;padding:0 16px;text-align:center;color:var(--texto3);font-size:13px}
+footer{max-width:640px;margin:40px auto 0;padding:0 16px calc(110px + env(safe-area-inset-bottom));text-align:center;color:var(--texto3);font-size:13px}
 
 /* Barras flotantes del pedido */
 .barra{position:fixed;z-index:40;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));width:min(600px,calc(100% - 24px));display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 8px 8px 20px;border-radius:999px;transform:translate(-50%,160%);transition:transform .5s var(--curva)}
 .barra.visible{transform:translate(-50%,0)}
 .barra-info{display:flex;flex-direction:column;line-height:1.2}
 .barra-info b{font-size:15px;font-weight:500}
-.barra-info span{font:400 19px/1.2 var(--f-marca);color:var(--crema)}
+.barra-info span{font:400 19px/1.2 var(--f-marca);color:var(--crema);transform-origin:left center}
 .barra .pill{height:44px;padding:0 22px}
 
+@media (max-width:359px){
+  .ficha .lema{font-size:11px;letter-spacing:.2em;padding-left:.2em}
+  .combo{flex-basis:86%}
+  .combo-arte{right:-28px;width:120px;height:120px}
+  .combo-arte img{width:112px;height:112px}
+  .combo-arte .botella{height:58px;bottom:30px}
+  .combo-arte .botella:nth-of-type(2){left:2px}
+  .combo-arte .botella:nth-of-type(3){left:22px}
+  .combo.elegida .combo-precio s{display:none}
+}
 @media (min-width:700px){
   .titulo{font-size:34px}
   .hoja{margin:auto;max-height:88vh}
@@ -332,16 +401,16 @@ footer{max-width:640px;margin:36px auto 0;padding:0 16px;text-align:center;color
       <div class="icono"><img src="img/mascota.webp" alt="La S de Salguero's: una pizza con anteojos y zapatillas" width="440" height="248"></div>
       <div class="ficha-txt">
         <h1 id="titulo-grande"><img class="logo" src="img/logo.webp" alt="Salguero's" width="900" height="259" fetchpriority="high"><span class="lema">Pizzería artesanal</span></h1>
-        <span class="sub">Para comer ya o congeladas · Nueva Córdoba</span>
-        <a class="pill" href="#categorias">Pedir</a>
+        <span class="sub">Para comer ya o congeladas, en&nbsp;Nueva&nbsp;Córdoba</span>
+        <a class="pill" data-mapa href="https://www.google.com/maps/search/?api=1&amp;query=Nueva%20C%C3%B3rdoba%2C%20C%C3%B3rdoba" target="_blank" rel="noopener" aria-label="Ubicación en Google Maps"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Ubicación</a>
       </div>
     </div>
   </section>
 
   <section class="bloque" id="categorias" aria-labelledby="t-cat">
-    <h2 class="titulo" id="t-cat">Categorías</h2>
+    <h2 class="titulo" id="t-cat">¿Qué pedimos?</h2>
     <ul class="categorias">
-      <li><button type="button" class="cat" data-cat="comer-ya" aria-haspopup="dialog"><img src="img/cat-comer-ya.webp" alt="" width="720" height="450"><b>Para comer ya</b><small>3 × $40.500</small></button></li>
+      <li><button type="button" class="cat" data-cat="comer-ya" aria-haspopup="dialog"><img src="img/cat-comer-ya.webp" alt="" width="720" height="450"><b>Para comer&nbsp;ya</b><small>3 × $40.500</small></button></li>
       <li><button type="button" class="cat" data-cat="congeladas" aria-haspopup="dialog"><img src="img/cat-congeladas.webp" alt="" width="720" height="450"><b>Congeladas</b><small>3 × $36.000</small></button></li>
       <li><button type="button" class="cat" data-cat="gaseosas" aria-haspopup="dialog"><span class="arte" data-arte="coca,sprite,fanta" style="background:radial-gradient(circle at 50% 30%,#5a1a12 0%,#141416 85%)"></span><b>Gaseosas</b><small>500 ml</small></button></li>
       <li><button type="button" class="cat" data-cat="cervezas" aria-haspopup="dialog"><span class="arte" data-arte="quilmes,brahma,stella" style="background:radial-gradient(circle at 50% 30%,#4a3a12 0%,#141416 85%)"></span><b>Cervezas</b><small>Lata 473 ml</small></button></li>
@@ -349,18 +418,9 @@ footer{max-width:640px;margin:36px auto 0;padding:0 16px;text-align:center;color
     </ul>
   </section>
 
-  <section class="bloque" id="pedido" aria-labelledby="t-pedido">
-    <h2 class="titulo" id="t-pedido">Tu pedido</h2>
-    <div class="grupo" id="cuenta" aria-live="polite"></div>
-    <p class="pie" id="consejo"></p>
-    <div class="grupo campos">
-      <label class="campo"><span class="sr">Nombre</span><input id="nombre" name="nombre" autocomplete="name" placeholder="Nombre"></label>
-      <label class="campo"><span class="sr">Dirección o barrio</span><input id="direccion" name="direccion" autocomplete="street-address" placeholder="Dirección o barrio"></label>
-    </div>
-    <a class="boton" id="enviar" href="https://wa.me/5493516655499" target="_blank" rel="noopener">
-      <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2Z"/></svg>
-      <span>Consultar por WhatsApp</span>
-    </a>
+  <section class="bloque" id="combos" aria-labelledby="t-combos">
+    <h2 class="titulo" id="t-combos">Promos</h2>
+    <ul class="combos" id="lista-combos"></ul>
   </section>
 
   <section class="bloque" id="quienes" aria-labelledby="t-quienes">
@@ -382,18 +442,10 @@ footer{max-width:640px;margin:36px auto 0;padding:0 16px;text-align:center;color
       </div>
     </div>
 
-    <h3 class="subtitulo">Cómo funciona</h3>
-    <ul class="grupo lista">
-      <li><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21c-3.9 0-6.5-2.6-6.5-6.2 0-3.6 3.2-5.6 3.8-9.3 2.4 1.4 3.7 3.6 3.9 5.4.8-.6 1.4-1.6 1.6-2.6 2 1.6 3.7 4.1 3.7 6.6 0 3.5-2.6 6.1-6.5 6.1Z"/></svg></span><span><strong>Para comer ya</strong><small>Las horneamos y te llegan calientes. Son $1.500 más por pizza.</small></span></li>
-      <li><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9M9.5 4.6 12 6.2l2.5-1.6M9.5 19.4l2.5-1.6 2.5 1.6"/></svg></span><span><strong>Congeladas</strong><small>Duran 6 meses en el freezer y 1 semana en la heladera. Se terminan en el horno bien caliente, hasta que el queso burbujee.</small></span></li>
-      <li><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="13" width="7" height="7" rx="1.6"/><rect x="13.5" y="13" width="7" height="7" rx="1.6"/><rect x="8.5" y="4" width="7" height="7" rx="1.6"/></svg></span><span><strong>Promos</strong><small>Mezclá sabores y servicios: se arman de a 3 y lo que sobra va a precio de 1 o de 2.</small></span></li>
-      <li><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><span><strong>Entregas</strong><small>Nueva Córdoba y alrededores. Día y horario los arreglamos por WhatsApp.</small></span></li>
-    </ul>
-
     <h3 class="subtitulo">Dónde entregamos</h3>
     <div class="grupo mapa">
       <iframe title="Mapa de Nueva Córdoba" src="https://maps.google.com/maps?q=Nueva%20C%C3%B3rdoba%2C%20C%C3%B3rdoba%2C%20Argentina&amp;z=14&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      <a class="fila" id="abrir-mapa" href="https://www.google.com/maps/search/?api=1&amp;query=Nueva%20C%C3%B3rdoba%2C%20C%C3%B3rdoba" target="_blank" rel="noopener">
+      <a class="fila" id="abrir-mapa" data-mapa href="https://www.google.com/maps/search/?api=1&amp;query=Nueva%20C%C3%B3rdoba%2C%20C%C3%B3rdoba" target="_blank" rel="noopener">
         <span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
         <span class="rotulo">Abrir en Google Maps</span>
         <svg class="i chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
@@ -457,7 +509,42 @@ footer{max-width:640px;margin:36px auto 0;padding:0 16px;text-align:center;color
     </div>
     <div class="barra vidrio" id="barra-pantalla" aria-hidden="true">
       <span class="barra-info"><b data-barra-cant></b><span data-barra-total></span></span>
-      <button type="button" class="pill" id="ver-pedido" tabindex="-1">Ver pedido</button>
+      <button type="button" class="pill" data-ver-pedido tabindex="-1">Ver pedido</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Tu pedido: viene después de elegir -->
+<dialog class="pantalla" id="pantalla-pedido" aria-labelledby="t-pedido">
+  <div class="pantalla-in" tabindex="-1" autofocus>
+    <header class="pantalla-nav">
+      <div>
+        <button type="button" class="volver" id="volver-pedido"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg><span>Inicio</span></button>
+        <h2 id="t-pedido">Tu pedido</h2>
+        <span></span>
+      </div>
+    </header>
+    <div class="pantalla-cuerpo">
+      <div class="grupo" id="cuenta" aria-live="polite"></div>
+      <div class="aviso" id="consejo" role="status" hidden>
+        <div class="aviso-cabeza"><span class="aviso-ico" id="aviso-ico"></span><span class="aviso-txt"><b id="aviso-titulo"></b><span id="aviso-detalle"></span></span></div>
+        <div class="aviso-chips" id="aviso-chips"></div>
+      </div>
+      <div class="tentar" id="tentar" hidden>
+        <h3>¿Y para tomar?</h3>
+        <p>Sumale una gaseosa o una cerveza.</p>
+        <ul class="tira" id="tira-bebidas" aria-label="Bebidas"></ul>
+        <p class="pie">Cervezas solo para mayores de 18 años.</p>
+      </div>
+      <div class="grupo campos">
+        <label class="campo"><span class="sr">Nombre</span><input id="nombre" name="nombre" autocomplete="name" placeholder="Tu nombre"></label>
+        <label class="campo"><span class="sr">Dirección, piso y depto</span><input id="direccion" name="direccion" autocomplete="street-address" placeholder="Dirección, piso y depto"></label>
+      </div>
+      <a class="boton" id="enviar" href="https://wa.me/5493516655499" target="_blank" rel="noopener">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2Z"/></svg>
+        <span>Consultar por WhatsApp</span>
+      </a>
+      <p class="pie centrado">Te respondemos por WhatsApp para confirmar el pedido y coordinar la entrega.</p>
     </div>
   </div>
 </dialog>
@@ -487,7 +574,7 @@ footer{max-width:640px;margin:36px auto 0;padding:0 16px;text-align:center;color
 
 <div class="barra vidrio" id="barra" aria-hidden="true">
   <span class="barra-info"><b data-barra-cant></b><span data-barra-total></span></span>
-  <a class="pill" href="#pedido" tabindex="-1">Ver pedido</a>
+  <button type="button" class="pill" data-ver-pedido tabindex="-1">Ver pedido</button>
 </div>
 
 <script>
@@ -525,6 +612,19 @@ footer{max-width:640px;margin:36px auto 0;padding:0 16px;text-align:center;color
     { id: 'stella', grupo: 'cervezas', nombre: 'Stella Artois', medida: 'Lata 473 ml', precio: 3800, envase: 'lata', cuerpo: '#f1ebe0', franja: '#c8102e', fondo: '#45360f' }
   ];
 
+  // Promos y combos, a precio fijo. Son una propuesta para completar: nombre, qué traen y precio.
+  // Lo que saldría suelto (el precio tachado) se calcula solo.
+  var COMBOS = [
+    { id: 'previa', nombre: 'Previa', etiqueta: 'Para la previa', trae: '3 pizzas para comer ya y 6 latas de cerveza',
+      pizzas: 3, modo: 'cocinada', bebidas: [['quilmes', 6]], precio: 55000, foto: 'jamon-1.webp', arte: ['quilmes', 'brahma', 'quilmes'], tinte: '#1f3f7a' },
+    { id: 'cita', nombre: 'Cita', etiqueta: 'Para dos', trae: '1 pizza para comer ya y 2 Stella Artois',
+      pizzas: 1, modo: 'cocinada', bebidas: [['stella', 2]], precio: 21000, foto: 'roquefort-2.webp', arte: ['stella', 'stella'], tinte: '#6b1020' },
+    { id: 'partido', nombre: 'Partido', etiqueta: 'Para ver el partido', trae: '2 pizzas para comer ya y 4 latas de cerveza',
+      pizzas: 2, modo: 'cocinada', bebidas: [['quilmes', 4]], precio: 37500, foto: 'menu-jamon.webp', arte: ['brahma', 'quilmes'], tinte: '#0f5130' },
+    { id: 'freezer', nombre: 'Freezer lleno', etiqueta: 'Para el mes', trae: '6 pizzas congeladas, sabores a elección',
+      pizzas: 6, modo: 'congelada', bebidas: [], precio: 69000, foto: 'cat-congeladas.webp', arte: [], tinte: '#12415f' }
+  ];
+
   // Qué muestra cada categoría al tocarla
   var CATEGORIAS = {
     'comer-ya': { titulo: 'Para comer ya', vista: 'pizzas', modo: 'cocinada' },
@@ -554,6 +654,10 @@ footer{max-width:640px;margin:36px auto 0;padding:0 16px;text-align:center;color
   }
   var MENOS = '<svg class="i" viewBox="0 0 24 24"><path d="M6 12h12"/></svg>';
   var MAS = '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg>';
+  var COPO = '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9M9.5 4.6 12 6.2l2.5-1.6M9.5 19.4l2.5-1.6 2.5 1.6"/></svg>';
+  var ETIQUETA = '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 12.2V4.5a1 1 0 0 1 1-1h7.7l8.3 8.3a1.4 1.4 0 0 1 0 2l-6.3 6.3a1.4 1.4 0 0 1-2 0Z"/><circle cx="8" cy="8" r="1.5"/></svg>';
+  var TILDE = '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+  var TACHO = '<svg class="i" viewBox="0 0 24 24"><path d="M5 7h14M10 7V5h4v2M7 7l.8 12a1.2 1.2 0 0 0 1.2 1.1h6a1.2 1.2 0 0 0 1.2-1.1L17 7"/></svg>';
 
   function dibujo(b) {
     if (b.envase === 'lata') {
@@ -572,29 +676,53 @@ footer{max-width:640px;margin:36px auto 0;padding:0 16px;text-align:center;color
       '<path d="M33 44c-2 5-3 10-3 16v84" stroke="rgba(255,255,255,.4)" stroke-width="5" stroke-linecap="round" fill="none"/></svg>';
   }
   function bebida(id) { return BEBIDAS.filter(function (b) { return b.id === id; })[0]; }
+  function control(nombre) {
+    return '<span class="control vidrio"><button type="button" class="restar">' + MENOS + '</button><output class="cant">0</output>' +
+      '<button type="button" class="sumar" aria-label="Sumar ' + nombre.toLowerCase() + '">' + MAS + '</button></span>';
+  }
+  function listaCombo(k) {
+    return precioServicio(k.pizzas, k.modo) + k.bebidas.reduce(function (t, b) { return t + bebida(b[0]).precio * b[1]; }, 0);
+  }
 
   // Armar las listas y los dibujos de las categorías
   $('#lista-pizzas').innerHTML = PIZZAS.map(function (p) {
     return '<li class="item pizza" data-id="' + p.id + '"><button type="button" class="prod" aria-haspopup="dialog"><span class="prod-txt"><strong>' + p.nombre + '</strong>' +
       '<small>' + p.desc + '</small><span class="precio" data-precio></span></span><span class="prod-foto"><img src="img/' + p.foto + '" alt=""></span></button>' +
-      '<button type="button" class="sumar vidrio">' + MAS + '<span class="cant"></span></button></li>';
+      control(p.nombre) + '</li>';
   }).join('');
   $('#lista-bebidas').innerHTML = BEBIDAS.map(function (b) {
     return '<li class="item bebida" data-id="' + b.id + '" data-grupo="' + b.grupo + '"><button type="button" class="prod"><span class="prod-txt"><strong>' + b.nombre + '</strong><small>' + b.medida + '</small>' +
       '<span class="precio">' + plata(b.precio) + '</span></span><span class="prod-foto" style="background:radial-gradient(circle at 50% 35%,' + b.fondo + ' 0%,#141416 90%)">' + dibujo(b) + '</span></button>' +
-      '<button type="button" class="sumar vidrio">' + MAS + '<span class="cant"></span></button></li>';
+      control(b.nombre) + '</li>';
+  }).join('');
+  // Bebidas sugeridas en Tu pedido
+  $('#tira-bebidas').innerHTML = BEBIDAS.map(function (b) {
+    return '<li class="item trago" data-id="' + b.id + '"><button type="button" class="beb"><span class="beb-foto" style="background:radial-gradient(circle at 50% 35%,' + b.fondo + ' 0%,#141416 90%)">' + dibujo(b) + '</span>' +
+      '<strong>' + b.nombre + '</strong><span class="precio">' + plata(b.precio) + '</span></button>' +
+      control(b.nombre) + '</li>';
+  }).join('');
+  $('#lista-combos').innerHTML = COMBOS.map(function (k) {
+    var alcohol = k.bebidas.some(function (b) { return bebida(b[0]).grupo === 'cervezas'; });
+    return '<li class="item combo" data-id="' + k.id + '"><button type="button" class="combo-card" style="--tinte:' + k.tinte + '">' +
+      '<span class="combo-arte"><img src="img/' + k.foto + '" alt="">' + (k.arte.length ? k.arte.map(function (id) { return dibujo(bebida(id)); }).join('') : '<span class="copo">' + COPO + '</span>') + '</span>' +
+      '<span class="combo-chips"><span>' + k.etiqueta + '</span>' + (alcohol ? '<span class="mas18">+18</span>' : '') + '</span>' +
+      '<strong>' + k.nombre + '</strong><small>' + k.trae + '</small>' +
+      '<span class="combo-precio"><b>' + plata(k.precio) + '</b><s>' + plata(listaCombo(k)) + '</s></span></button>' +
+      control('combo ' + k.nombre) + '</li>';
   }).join('');
   todos('[data-arte]').forEach(function (el) {
     el.innerHTML = el.dataset.arte.split(',').map(function (id) { return dibujo(bebida(id)); }).join('');
   });
 
-  var filasPizza = todos('.pizza'), filasBebida = todos('.bebida');
-  // Pedido: pizzas como "id@servicio" (se pueden mezclar servicios) y bebidas por id
+  var filasPizza = todos('.pizza'), filasBebida = todos('.bebida'), filasTrago = todos('.trago'), filasCombo = todos('.combo');
+  // Pedido: pizzas como "id@servicio" (se pueden mezclar servicios), bebidas por id y combos como "combo:id"
   var cantidades = {};
   var vistaModo = 'cocinada';
-  var cuenta = $('#cuenta'), consejo = $('#consejo'), enviar = $('#enviar');
+  var cuenta = $('#cuenta'), consejo = $('#consejo'), enviar = $('#enviar'), tentar = $('#tentar');
   var campos = [$('#nombre'), $('#direccion')];
-  var nTotal = 0, total = 0;
+  var nTotal = 0, nPizzas = 0, nBebidas = 0, nCombos = 0, total = 0;
+  var comboConBebida = false, comboSinBebida = false;
+  var ultimoModo = 'cocinada', modoAviso = 'cocinada', avisoAntes = '';
   var abierta = null; // pizza con la hoja abierta: { p, modo, clave }
 
   todos('[data-wa-simple]').forEach(function (a) { a.href = wa(SALUDO); });
@@ -610,7 +738,7 @@ footer{max-width:640px;margin:36px auto 0;padding:0 16px;text-align:center;color
     resena.querySelector('.rotulo').textContent = 'Reseñas en Google: muy pronto';
     resena.querySelector('.chevron').remove();
   }
-  if (GOOGLE.perfil) $('#abrir-mapa').href = GOOGLE.perfil;
+  if (GOOGLE.perfil) todos('[data-mapa]').forEach(function (a) { a.href = GOOGLE.perfil; });
 
   $('#compartir').addEventListener('click', function () {
     var datos = { title: "Salguero's", text: 'Pizzas artesanales en Nueva Córdoba, para comer ya o congeladas', url: location.href };
@@ -640,21 +768,26 @@ footer{max-width:640px;margin:36px auto 0;padding:0 16px;text-align:center;color
   });
 
   function cambiar(clave, d) {
+    if (d > 0 && clave.indexOf('@') > 0) ultimoModo = clave.split('@')[1];
     cantidades[clave] = Math.max(0, Math.min(MAXIMO, (cantidades[clave] || 0) + d));
     actualizar();
   }
-  function lineaHtml(clave, nombre, c) {
+  function lineaHtml(clave, nombre, c, detalle) {
     var bajo = nombre.toLowerCase();
-    return '<div class="fila"><span class="rotulo">' + nombre + '</span><span class="stepper" data-clave="' + clave + '">' +
-      '<button type="button" data-d="-1" aria-label="Sacar una ' + bajo + '">' + MENOS + '</button>' +
+    return '<div class="fila"><span class="rotulo">' + nombre + (detalle ? '<small>' + detalle + '</small>' : '') + '</span><span class="stepper" data-clave="' + clave + '">' +
+      '<button type="button" data-d="-1" aria-label="' + (c === 1 ? 'Quitar ' : 'Sacar una ') + bajo + '">' + (c === 1 ? TACHO : MENOS) + '</button>' +
       '<output>' + c + '</output>' +
       '<button type="button" data-d="1" aria-label="Sumar una ' + bajo + '"' + (c >= MAXIMO ? ' disabled' : '') + '>' + MAS + '</button></span></div>';
   }
   function pintarFila(li, clave, nombre) {
-    var c = cantidades[clave] || 0, boton = li.querySelector('.sumar');
+    var c = cantidades[clave] || 0, bajo = nombre.toLowerCase(), restar = li.querySelector('.restar');
+    li.dataset.clave = clave;
     li.classList.toggle('elegida', c > 0);
-    boton.querySelector('.cant').textContent = c;
-    boton.setAttribute('aria-label', 'Sumar ' + nombre.toLowerCase() + (c ? ' (' + c + ' en el pedido)' : ''));
+    li.querySelector('.cant').textContent = c;
+    li.querySelector('.sumar').setAttribute('aria-label', 'Sumar ' + bajo + (c ? ' (' + c + ' en el pedido)' : ''));
+    restar.setAttribute('aria-label', (c === 1 ? 'Quitar ' : 'Sacar ') + bajo);
+    restar.innerHTML = c === 1 ? TACHO : MENOS;
+    restar.tabIndex = c ? 0 : -1;
   }
 
   function actualizar() {
@@ -665,11 +798,24 @@ footer{max-width:640px;margin:36px auto 0;padding:0 16px;text-align:center;color
       pintarFila(li, PIZZAS[i].id + '@' + vistaModo, PIZZAS[i].nombre);
     });
     filasBebida.forEach(function (li, i) { pintarFila(li, BEBIDAS[i].id, BEBIDAS[i].nombre); });
+    filasTrago.forEach(function (li, i) { pintarFila(li, BEBIDAS[i].id, BEBIDAS[i].nombre); });
+    filasCombo.forEach(function (li, i) { pintarFila(li, 'combo:' + COMBOS[i].id, 'Combo ' + COMBOS[i].nombre); });
     $('#modo-ayuda').textContent = vistaModo === 'cocinada' ? 'Te llegan calientes. Son $1.500 más por pizza.' : 'Para el freezer: duran 6 meses y se terminan en tu horno.';
     $('#promos').innerHTML = [1, 2, 3].map(function (k) { return '<li><b>' + k + '</b> × ' + plata(precioServicio(k, vistaModo)) + '</li>'; }).join('');
 
     // El pedido: las promos cuentan todas las pizzas juntas; la cocción se suma por pizza cocinada
-    var html = '', msj = [], nPizzas = 0, nCocinadas = 0, nBebidas = 0, totalBebidas = 0;
+    var html = '', msj = [], nCocinadas = 0, totalBebidas = 0, totalCombos = 0, totalAntes = total;
+    nPizzas = 0; nBebidas = 0; nCombos = 0; comboConBebida = false; comboSinBebida = false;
+    var bloqueCombos = '', lineasCombos = [];
+    COMBOS.forEach(function (k) {
+      var c = cantidades['combo:' + k.id] || 0;
+      if (!c) return;
+      nCombos += c; totalCombos += c * k.precio;
+      if (k.bebidas.length) comboConBebida = true; else comboSinBebida = true;
+      bloqueCombos += lineaHtml('combo:' + k.id, 'Combo ' + k.nombre, c, k.trae);
+      lineasCombos.push('- ' + c + ' Combo ' + k.nombre + ' (' + k.trae + ')');
+    });
+    if (bloqueCombos) { html += '<div class="fila titulo-fila">Combos</div>' + bloqueCombos; msj.push('Combos:\n' + lineasCombos.join('\n')); }
     ['cocinada', 'congelada'].forEach(function (m) {
       var bloque = '', lineas = [];
       PIZZAS.forEach(function (p) {
@@ -692,21 +838,42 @@ footer{max-width:640px;margin:36px auto 0;padding:0 16px;text-align:center;color
     });
     if (bloqueBebidas) { html += '<div class="fila titulo-fila">Bebidas</div>' + bloqueBebidas; msj.push('Bebidas:\n' + lineasBebidas.join('\n')); }
 
-    nTotal = nPizzas + nBebidas;
-    total = precio(nPizzas) + COCCION * nCocinadas + totalBebidas;
-    if (!nTotal) html = '<div class="fila vacia">Elegí una categoría y tocá + en lo que quieras.</div>';
+    nTotal = nCombos + nPizzas + nBebidas;
+    total = totalCombos + precio(nPizzas) + COCCION * nCocinadas + totalBebidas;
+    if (!nTotal) html = '<div class="fila vacia">Tu pedido está vacío. Volvé y tocá + en lo que quieras.</div>';
+    if (!nTotal) tentar.hidden = true;
+    // La cocción a la vista, así se entiende el total
+    if (nCocinadas) html += '<div class="fila extra"><span>Cocción (' + nCocinadas + ' × ' + plata(COCCION) + ')</span><span>' + plata(COCCION * nCocinadas) + '</span></div>';
     html += '<div class="fila total"><span>Total</span><strong>' + plata(total) + '</strong></div>';
     cuenta.innerHTML = html;
 
     var ahorro = nPizzas * 13000 - precio(nPizzas), proxima = precio(nPizzas + 1) - precio(nPizzas);
-    var unSoloServicio = nCocinadas === nPizzas ? 'cocinada' : nCocinadas === 0 ? 'congelada' : null;
-    consejo.textContent = nPizzas % 3
-      ? 'Sumá una pizza más y te sale ' + plata(proxima + (unSoloServicio === 'cocinada' ? COCCION : 0)) + (unSoloServicio ? '.' : ' (+$1.500 si es para comer ya).')
-      : ahorro > 0 ? 'Con la promo te ahorrás ' + plata(ahorro) + '.' : '';
+    // Aviso de promo: cuánto sale la próxima pizza (con botones para sumarla) o cuánto se ahorran
+    var mezcla = nCocinadas && nCocinadas < nPizzas, titulo = '', detalle = '';
+    modoAviso = nCocinadas === nPizzas ? 'cocinada' : nCocinadas === 0 ? 'congelada' : ultimoModo;
+    if (nPizzas % 3) {
+      var extra = modoAviso === 'cocinada' ? COCCION : 0;
+      titulo = nPizzas % 3 === 2 ? '¡Completá la promo de 3!' : '¡Sumá 1 pizza más!';
+      detalle = 'La próxima te sale ' + plata(proxima + extra) + ' en vez de ' + plata(13000 + extra) +
+        (mezcla ? ' (' + SERVICIOS[modoAviso].toLowerCase() + ').' : '.');
+    } else if (ahorro > 0) {
+      titulo = '¡Promo aplicada!';
+      detalle = 'Con las promos de 3 te ahorrás ' + plata(ahorro) + '.';
+    }
+    consejo.hidden = !titulo;
+    if (titulo && titulo + detalle !== avisoAntes) {
+      $('#aviso-titulo').textContent = titulo;
+      $('#aviso-detalle').textContent = detalle;
+      $('#aviso-ico').innerHTML = nPizzas % 3 ? ETIQUETA : TILDE;
+      $('#aviso-chips').hidden = !(nPizzas % 3);
+      consejo.classList.remove('pop'); void consejo.offsetWidth; consejo.classList.add('pop');
+    }
+    avisoAntes = titulo + detalle;
 
     var nombre = campos[0].value.trim(), direccion = campos[1].value.trim();
     if (nTotal) {
       enviar.href = wa("Hola Salguero's! Quiero hacer un pedido:\n" + msj.join('\n') + '\nTotal: ' + plata(total) +
+        (nCombos ? '\n(Los sabores del combo los elijo por acá)' : '') +
         (nombre ? '\nNombre: ' + nombre : '') + '\nDirección: ' + (direccion || '(la paso por acá)'));
       enviar.querySelector('span').textContent = 'Pedir por WhatsApp';
     } else {
@@ -714,10 +881,12 @@ footer{max-width:640px;margin:36px auto 0;padding:0 16px;text-align:center;color
       enviar.querySelector('span').textContent = 'Consultar por WhatsApp';
     }
     var partes = [];
+    if (nCombos) partes.push(nCombos + (nCombos > 1 ? ' combos' : ' combo'));
     if (nPizzas) partes.push(nPizzas + (nPizzas > 1 ? ' pizzas' : ' pizza'));
     if (nBebidas) partes.push(nBebidas + (nBebidas > 1 ? ' bebidas' : ' bebida'));
     todos('[data-barra-cant]').forEach(function (el) { el.textContent = partes.join(' · '); });
-    todos('[data-barra-total]').forEach(function (el) { el.textContent = plata(total); });
+    todos('[data-barra-total]').forEach(function (el) { el.textContent = plata(total); if (total !== totalAntes) saltar(el); });
+    if (total !== totalAntes && nTotal) saltar(cuenta.querySelector('.total strong'));
     if (abierta) pintarHoja();
     mostrarBarras();
   }
@@ -725,6 +894,32 @@ footer{max-width:640px;margin:36px auto 0;padding:0 16px;text-align:center;color
   cuenta.addEventListener('click', function (e) {
     var b = e.target.closest('button[data-d]');
     if (b) cambiar(b.parentNode.dataset.clave, +b.dataset.d);
+  });
+
+  // Lo que se suma dentro de Tu pedido no se mueve de lugar aunque la lista de arriba crezca
+  function quieto(ancla, fn) {
+    if (!pantallaPedido.contains(ancla)) return fn();
+    var scroller = pantallaPedido.querySelector('.pantalla-in'), antes = ancla.getBoundingClientRect().top;
+    fn();
+    scroller.scrollTop += ancla.getBoundingClientRect().top - antes;
+  }
+  // Botones − y + de cada producto (listas, bebidas sugeridas y combos)
+  function tocar(li, d) {
+    quieto(li, function () { cambiar(li.dataset.clave, d); });
+    if (d > 0) saltar(li.querySelector('.cant'));
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('.control button');
+    if (b) tocar(b.closest('.item'), b.classList.contains('sumar') ? 1 : -1);
+  });
+  todos('.bebida .prod, .trago .beb, .combo-card').forEach(function (b) {
+    b.addEventListener('click', function () { tocar(b.closest('.item'), 1); });
+  });
+  // Botones del aviso de promo: suman una pizza del servicio que vienen pidiendo
+  $('#aviso-chips').innerHTML = PIZZAS.map(function (p, i) { return '<button type="button" data-pizza="' + i + '">' + MAS + p.nombre + '</button>'; }).join('');
+  $('#aviso-chips').addEventListener('click', function (e) {
+    var b = e.target.closest('button');
+    if (b) quieto(consejo, function () { cambiar(PIZZAS[+b.dataset.pizza].id + '@' + modoAviso, 1); });
   });
 
   // Por mayor y eventos: el mensaje de presupuesto se arma con lo que completen
@@ -741,11 +936,39 @@ footer{max-width:640px;margin:36px auto 0;padding:0 16px;text-align:center;color
   }
   todos('#vista-mayor input').forEach(function (c) { c.addEventListener('input', armarMayor); c.addEventListener('change', armarMayor); });
 
-  // Pantalla de cada categoría (entra desde la derecha; el botón "atrás" del celular la cierra)
-  var pantalla = $('#pantalla'), catOrigen = null, ignorarPop = false;
+  // Pantallas que entran desde la derecha (categorías y Tu pedido); el botón "atrás" del celular las cierra
+  var pantalla = $('#pantalla'), pantallaPedido = $('#pantalla-pedido'), origenes = {}, ignorarPop = false;
+  function abrirPantalla(d, origen) {
+    origenes[d.id] = origen;
+    d.classList.remove('cerrando');
+    d.showModal();
+    d.querySelector('.pantalla-in').scrollTop = 0;
+    document.documentElement.classList.add('bloqueado');
+    try { history.pushState({ salgueros: d.id }, ''); } catch (e) {}
+  }
+  function cerrarPantalla(d, desdeHistorial) {
+    if (!d.open || d.classList.contains('cerrando')) return;
+    if (hoja.open) { hoja.close(); alCerrarHoja(); }
+    d.classList.add('cerrando');
+    setTimeout(function () {
+      d.close();
+      d.classList.remove('cerrando');
+      if (!pantalla.open && !pantallaPedido.open) document.documentElement.classList.remove('bloqueado');
+      if (origenes[d.id]) origenes[d.id].focus({ preventScroll: true });
+    }, 280);
+    if (!desdeHistorial && history.state && history.state.salgueros === d.id) { ignorarPop = true; history.back(); }
+  }
+  addEventListener('popstate', function () {
+    if (ignorarPop) { ignorarPop = false; return; }
+    if (pantallaPedido.open) cerrarPantalla(pantallaPedido, true);
+    else if (pantalla.open) cerrarPantalla(pantalla, true);
+  });
+  [pantalla, pantallaPedido].forEach(function (d) {
+    d.addEventListener('cancel', function (e) { e.preventDefault(); cerrarPantalla(d); });
+  });
+
   function abrirCategoria(boton) {
     var cat = CATEGORIAS[boton.dataset.cat];
-    catOrigen = boton;
     $('#pantalla-titulo').textContent = cat.titulo;
     todos('.vista').forEach(function (v) { v.hidden = v.id !== 'vista-' + cat.vista; });
     if (cat.modo) { vistaModo = cat.modo; $('input[name=modo][value="' + cat.modo + '"]').checked = true; }
@@ -754,34 +977,18 @@ footer{max-width:640px;margin:36px auto 0;padding:0 16px;text-align:center;color
       $('#aviso-alcohol').hidden = cat.grupo !== 'cervezas';
     }
     actualizar();
-    pantalla.classList.remove('cerrando');
-    pantalla.showModal();
-    pantalla.querySelector('.pantalla-in').scrollTop = 0;
-    document.documentElement.classList.add('bloqueado');
-    try { history.pushState({ salgueros: 'pantalla' }, ''); } catch (e) {}
+    abrirPantalla(pantalla, boton);
   }
-  function cerrarPantalla(desdeHistorial, despues) {
-    if (!pantalla.open || pantalla.classList.contains('cerrando')) return;
-    if (hoja.open) { hoja.close(); alCerrarHoja(); }
-    pantalla.classList.add('cerrando');
-    setTimeout(function () {
-      pantalla.close();
-      pantalla.classList.remove('cerrando');
-      document.documentElement.classList.remove('bloqueado');
-      if (despues) despues();
-      else if (catOrigen) catOrigen.focus({ preventScroll: true });
-    }, 280);
-    if (!desdeHistorial && history.state && history.state.salgueros === 'pantalla') { ignorarPop = true; history.back(); }
+  // Tu pedido: si eligieron pizzas pero nada para tomar, se ofrecen las bebidas
+  function abrirPedido(boton) {
+    $('#volver-pedido span').textContent = pantalla.open ? 'Volver' : 'Inicio';
+    tentar.hidden = !(nBebidas === 0 && !comboConBebida && (nPizzas > 0 || comboSinBebida));
+    $('#tira-bebidas').scrollLeft = 0;
+    abrirPantalla(pantallaPedido, boton);
   }
-  addEventListener('popstate', function () {
-    if (ignorarPop) { ignorarPop = false; return; }
-    if (pantalla.open) cerrarPantalla(true);
-  });
-  pantalla.addEventListener('cancel', function (e) { e.preventDefault(); cerrarPantalla(); });
-  $('#volver').addEventListener('click', function () { cerrarPantalla(); });
-  $('#ver-pedido').addEventListener('click', function () {
-    cerrarPantalla(false, function () { document.getElementById('pedido').scrollIntoView({ behavior: 'smooth' }); });
-  });
+  $('#volver').addEventListener('click', function () { cerrarPantalla(pantalla); });
+  $('#volver-pedido').addEventListener('click', function () { cerrarPantalla(pantallaPedido); });
+  todos('[data-ver-pedido]').forEach(function (b) { b.addEventListener('click', function () { abrirPedido(b); }); });
   todos('.cat').forEach(function (b) { b.addEventListener('click', function () { abrirCategoria(b); }); });
   todos('input[name=modo]').forEach(function (r) {
     r.addEventListener('change', function () {
@@ -858,29 +1065,20 @@ footer{max-width:640px;margin:36px auto 0;padding:0 16px;text-align:center;color
 
   filasPizza.forEach(function (li, i) {
     li.querySelector('.prod').addEventListener('click', function () { abrirPizza(i); });
-    li.querySelector('.sumar').addEventListener('click', function () { cambiar(PIZZAS[i].id + '@' + vistaModo, 1); saltar(this); });
-  });
-  filasBebida.forEach(function (li, i) {
-    var boton = li.querySelector('.sumar');
-    function sumar() { cambiar(BEBIDAS[i].id, 1); saltar(boton); }
-    li.querySelector('.prod').addEventListener('click', sumar);
-    boton.addEventListener('click', sumar);
   });
 
-  // Barras flotantes: en la pantalla de categoría, siempre que haya algo pedido;
-  // en la página, cuando el botón de pedir no está a la vista
-  var barra = $('#barra'), barraPantalla = $('#barra-pantalla'), botonVisible = false;
+  // Barras flotantes con lo que va sumando el pedido: aparecen apenas hay algo elegido
+  var barra = $('#barra'), barraPantalla = $('#barra-pantalla');
   function verBarra(b, ver) {
     b.classList.toggle('visible', ver);
     b.setAttribute('aria-hidden', ver ? 'false' : 'true');
     b.querySelector('.pill').tabIndex = ver ? 0 : -1;
   }
   function mostrarBarras() {
-    verBarra(barra, nTotal > 0 && !botonVisible);
+    verBarra(barra, nTotal > 0);
     verBarra(barraPantalla, nTotal > 0);
   }
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (e) { botonVisible = e[0].isIntersecting; mostrarBarras(); }).observe(enviar);
     var nav = $('#nav');
     new IntersectionObserver(function (e) { nav.classList.toggle('compacta', !e[0].isIntersecting); },
       { rootMargin: '-56px 0px 0px 0px' }).observe($('#titulo-grande'));
