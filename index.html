@@ -141,13 +141,11 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .categorias .ancha{grid-column:1/-1}
 .cat{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;width:100%;aspect-ratio:16/11;padding:10px;border:0;border-radius:20px;overflow:hidden;background:#141416;color:#fff;text-align:center;cursor:pointer}
 .ancha .cat{aspect-ratio:16/6.5}
-.cat img,.cat .arte{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--curva)}
+.cat img{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--curva)}
 .cat::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.6))}
-.cat:active img,.cat:active .arte{transform:scale(1.06)}
+.cat:active img{transform:scale(1.06)}
 .cat b{text-wrap:balance;font:600 clamp(15px,4.8vw,19px)/1.1 var(--f-ui);letter-spacing:.03em;text-transform:uppercase;text-shadow:0 2px 12px rgba(0,0,0,.65)}
 .cat small{padding:4px 10px;border-radius:999px;background:var(--crema);color:#111;font-size:12px;font-weight:600}
-.cat .arte{display:flex;align-items:flex-end;justify-content:center;gap:3%;padding-top:16%}
-.cat .arte .botella{height:80%;width:auto}
 
 /* Promos y combos */
 .combos{display:flex;gap:12px;margin:0 -16px;padding:0 16px;list-style:none;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 16px;scrollbar-width:none;overscroll-behavior-x:contain}
@@ -165,11 +163,10 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .combo-precio b{font:600 20px/1 var(--f-ui);color:#fff}
 .combo-precio s{font-size:14px;color:var(--texto3)}
 .combo-arte{position:absolute;z-index:-1;right:-30px;top:6px;width:150px;height:150px;transition:transform .5s var(--curva)}
-.combo-arte img{width:138px;height:138px;border-radius:50%;object-fit:cover;box-shadow:0 18px 30px -12px rgba(0,0,0,.8)}
-.combo-arte .botella{position:absolute;bottom:26px;width:auto;height:74px;filter:drop-shadow(0 8px 10px rgba(0,0,0,.55))}
-.combo-arte .botella:nth-of-type(1){left:-18px}
-.combo-arte .botella:nth-of-type(2){left:8px}
-.combo-arte .botella:nth-of-type(3){left:34px}
+.combo-pizza{width:138px;height:138px;border-radius:50%;object-fit:cover;box-shadow:0 18px 30px -12px rgba(0,0,0,.8)}
+.combo-latas{position:absolute;left:-16px;bottom:26px;display:flex;align-items:flex-end}
+.combo-latas > *{width:auto;height:76px;filter:drop-shadow(0 8px 10px rgba(0,0,0,.6))}
+.combo-latas > * + *{margin-left:-6px}
 .combo-arte .copo{position:absolute;left:-12px;bottom:34px;width:46px;height:46px;border-radius:50%;background:var(--crema);color:#1f6fb2;display:grid;place-items:center;box-shadow:0 10px 20px -8px rgba(0,0,0,.7)}
 .combo-arte .copo svg{width:24px;height:24px}
 .combo .control{top:auto;bottom:14px;right:14px}
@@ -312,6 +309,7 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .beb{display:block;width:100%;padding:0;border:0;background:none;color:inherit;text-align:left;cursor:pointer}
 .beb-foto{display:grid;place-items:center;height:108px;border-radius:18px;overflow:hidden;transition:transform .2s var(--curva)}
 .beb:active .beb-foto{transform:scale(.96)}
+.beb-foto img{width:100%;height:100%;object-fit:cover}
 .beb-foto .botella{width:auto;height:76%;filter:drop-shadow(0 8px 10px rgba(0,0,0,.45))}
 .beb strong{display:block;margin-top:8px;font-size:15px;font-weight:500;line-height:1.2}
 .beb .precio{display:block;margin-top:2px;font-size:14px;font-weight:600;color:var(--crema)}
@@ -357,10 +355,9 @@ footer{max-width:640px;margin:40px auto 0;padding:0 16px calc(110px + env(safe-a
   .ficha .lema{font-size:11px;letter-spacing:.2em;padding-left:.2em}
   .combo{flex-basis:86%}
   .combo-arte{right:-28px;width:120px;height:120px}
-  .combo-arte img{width:112px;height:112px}
-  .combo-arte .botella{height:58px;bottom:30px}
-  .combo-arte .botella:nth-of-type(2){left:2px}
-  .combo-arte .botella:nth-of-type(3){left:22px}
+  .combo-pizza{width:112px;height:112px}
+  .combo-latas{bottom:30px}
+  .combo-latas > *{height:60px}
   .combo.elegida .combo-precio s{display:none}
 }
 @media (min-width:700px){
@@ -412,8 +409,8 @@ footer{max-width:640px;margin:40px auto 0;padding:0 16px calc(110px + env(safe-a
     <ul class="categorias">
       <li><button type="button" class="cat" data-cat="comer-ya" aria-haspopup="dialog"><img src="img/cat-comer-ya.webp" alt="" width="720" height="450"><b>Para comer&nbsp;ya</b><small>3 × $40.500</small></button></li>
       <li><button type="button" class="cat" data-cat="congeladas" aria-haspopup="dialog"><img src="img/cat-congeladas.webp" alt="" width="720" height="450"><b>Congeladas</b><small>3 × $36.000</small></button></li>
-      <li><button type="button" class="cat" data-cat="gaseosas" aria-haspopup="dialog"><span class="arte" data-arte="coca,sprite,fanta" style="background:radial-gradient(circle at 50% 30%,#5a1a12 0%,#141416 85%)"></span><b>Gaseosas</b><small>500 ml</small></button></li>
-      <li><button type="button" class="cat" data-cat="cervezas" aria-haspopup="dialog"><span class="arte" data-arte="quilmes,brahma,stella" style="background:radial-gradient(circle at 50% 30%,#4a3a12 0%,#141416 85%)"></span><b>Cervezas</b><small>Lata 473 ml</small></button></li>
+      <li><button type="button" class="cat" data-cat="gaseosas" aria-haspopup="dialog"><img src="img/cat-gaseosas.webp" alt="" width="720" height="495"><b>Gaseosas</b><small>500 ml</small></button></li>
+      <li><button type="button" class="cat" data-cat="cervezas" aria-haspopup="dialog"><img src="img/cat-cervezas.webp" alt="" width="720" height="495"><b>Cervezas</b><small>Lata 473 ml</small></button></li>
       <li class="ancha"><button type="button" class="cat" data-cat="por-mayor" aria-haspopup="dialog"><img src="img/cat-por-mayor.webp" alt="" width="720" height="315"><b>Por mayor y eventos</b><small>Pedí presupuesto</small></button></li>
     </ul>
   </section>
@@ -600,16 +597,17 @@ footer{max-width:640px;margin:40px auto 0;padding:0 16px calc(110px + env(safe-a
       fotos: [['fugazzetta-1.webp', 'Así llega'], ['fugazzetta-2.webp', 'Así llega']] }
   ];
 
-  // Bebidas: precio de venta sugerido. Los dibujos se arman con estos colores.
+  // Bebidas: precio de venta sugerido. Fotos en img/ (salen de _bebidas.py); los colores son para el dibujo
+  // que se usa si una bebida no tiene foto.
   var BEBIDAS = [
-    { id: 'coca', grupo: 'gaseosas', nombre: 'Coca-Cola', medida: 'Botella 500 ml', precio: 2500, envase: 'botella', liquido: '#3a1a10', etiqueta: '#e41e26', tapa: '#e41e26', fondo: '#4a1010' },
-    { id: 'coca-sin', grupo: 'gaseosas', nombre: 'Coca-Cola Sin Azúcar', medida: 'Botella 500 ml', precio: 2500, envase: 'botella', liquido: '#3a1a10', etiqueta: '#141414', franja: '#e41e26', tapa: '#141414', fondo: '#2c2c2e' },
-    { id: 'sprite', grupo: 'gaseosas', nombre: 'Sprite', medida: 'Botella 500 ml', precio: 2500, envase: 'botella', liquido: '#cdeccf', etiqueta: '#00a14b', tapa: '#00a14b', fondo: '#0e3a20' },
-    { id: 'fanta', grupo: 'gaseosas', nombre: 'Fanta Naranja', medida: 'Botella 500 ml', precio: 2500, envase: 'botella', liquido: '#ff8c1a', etiqueta: '#1d4fa0', tapa: '#ff8c1a', fondo: '#4f2606' },
-    { id: 'agua', grupo: 'gaseosas', nombre: 'Agua sin gas', medida: 'Botella 500 ml', precio: 1500, envase: 'botella', liquido: '#dcefff', etiqueta: '#2f7fd1', tapa: '#2f7fd1', fondo: '#10304d' },
-    { id: 'quilmes', grupo: 'cervezas', nombre: 'Quilmes', medida: 'Lata 473 ml', precio: 3000, envase: 'lata', cuerpo: '#1f4e9e', franja: '#f4f4f4', fondo: '#0f264a' },
-    { id: 'brahma', grupo: 'cervezas', nombre: 'Brahma', medida: 'Lata 473 ml', precio: 3000, envase: 'lata', cuerpo: '#c8102e', franja: '#f4f4f4', fondo: '#4a0b14' },
-    { id: 'stella', grupo: 'cervezas', nombre: 'Stella Artois', medida: 'Lata 473 ml', precio: 3800, envase: 'lata', cuerpo: '#f1ebe0', franja: '#c8102e', fondo: '#45360f' }
+    { id: 'coca', foto: 'beb-coca.webp', grupo: 'gaseosas', nombre: 'Coca-Cola', medida: 'Botella 500 ml', precio: 2500, envase: 'botella', liquido: '#3a1a10', etiqueta: '#e41e26', tapa: '#e41e26', fondo: '#4a1010' },
+    { id: 'coca-sin', foto: 'beb-coca-sin.webp', grupo: 'gaseosas', nombre: 'Coca-Cola Sin Azúcar', medida: 'Botella 500 ml', precio: 2500, envase: 'botella', liquido: '#3a1a10', etiqueta: '#141414', franja: '#e41e26', tapa: '#141414', fondo: '#2c2c2e' },
+    { id: 'sprite', foto: 'beb-sprite.webp', grupo: 'gaseosas', nombre: 'Sprite', medida: 'Botella 500 ml', precio: 2500, envase: 'botella', liquido: '#cdeccf', etiqueta: '#00a14b', tapa: '#00a14b', fondo: '#0e3a20' },
+    { id: 'fanta', foto: 'beb-fanta.webp', grupo: 'gaseosas', nombre: 'Fanta Naranja', medida: 'Botella 500 ml', precio: 2500, envase: 'botella', liquido: '#ff8c1a', etiqueta: '#1d4fa0', tapa: '#ff8c1a', fondo: '#4f2606' },
+    { id: 'agua', foto: 'beb-agua.webp', grupo: 'gaseosas', nombre: 'Agua sin gas', medida: 'Botella 500 ml', precio: 1500, envase: 'botella', liquido: '#dcefff', etiqueta: '#2f7fd1', tapa: '#2f7fd1', fondo: '#10304d' },
+    { id: 'quilmes', foto: 'beb-quilmes.webp', lata: 'lata-quilmes.webp', grupo: 'cervezas', nombre: 'Quilmes', medida: 'Lata 473 ml', precio: 3000, envase: 'lata', cuerpo: '#1f4e9e', franja: '#f4f4f4', fondo: '#0f264a' },
+    { id: 'brahma', foto: 'beb-brahma.webp', lata: 'lata-brahma.webp', grupo: 'cervezas', nombre: 'Brahma', medida: 'Lata 473 ml', precio: 3000, envase: 'lata', cuerpo: '#c8102e', franja: '#f4f4f4', fondo: '#4a0b14' },
+    { id: 'stella', foto: 'beb-stella.webp', lata: 'lata-stella.webp', grupo: 'cervezas', nombre: 'Stella Artois', medida: 'Lata 473 ml', precio: 3800, envase: 'lata', cuerpo: '#f1ebe0', franja: '#c8102e', fondo: '#45360f' }
   ];
 
   // Promos y combos, a precio fijo. Son una propuesta para completar: nombre, qué traen y precio.
@@ -676,6 +674,11 @@ footer{max-width:640px;margin:40px auto 0;padding:0 16px calc(110px + env(safe-a
       '<path d="M33 44c-2 5-3 10-3 16v84" stroke="rgba(255,255,255,.4)" stroke-width="5" stroke-linecap="round" fill="none"/></svg>';
   }
   function bebida(id) { return BEBIDAS.filter(function (b) { return b.id === id; })[0]; }
+  // Foto de la bebida; si todavía no tiene, el dibujo sobre su color
+  function imagenBebida(b) {
+    return b.foto ? '><img src="img/' + b.foto + '" alt="" loading="lazy">'
+      : ' style="background:radial-gradient(circle at 50% 35%,' + b.fondo + ' 0%,#141416 90%)">' + dibujo(b);
+  }
   function control(nombre) {
     return '<span class="control vidrio"><button type="button" class="restar">' + MENOS + '</button><output class="cant">0</output>' +
       '<button type="button" class="sumar" aria-label="Sumar ' + nombre.toLowerCase() + '">' + MAS + '</button></span>';
@@ -692,27 +695,25 @@ footer{max-width:640px;margin:40px auto 0;padding:0 16px calc(110px + env(safe-a
   }).join('');
   $('#lista-bebidas').innerHTML = BEBIDAS.map(function (b) {
     return '<li class="item bebida" data-id="' + b.id + '" data-grupo="' + b.grupo + '"><button type="button" class="prod"><span class="prod-txt"><strong>' + b.nombre + '</strong><small>' + b.medida + '</small>' +
-      '<span class="precio">' + plata(b.precio) + '</span></span><span class="prod-foto" style="background:radial-gradient(circle at 50% 35%,' + b.fondo + ' 0%,#141416 90%)">' + dibujo(b) + '</span></button>' +
+      '<span class="precio">' + plata(b.precio) + '</span></span><span class="prod-foto"' + imagenBebida(b) + '</span></button>' +
       control(b.nombre) + '</li>';
   }).join('');
   // Bebidas sugeridas en Tu pedido
   $('#tira-bebidas').innerHTML = BEBIDAS.map(function (b) {
-    return '<li class="item trago" data-id="' + b.id + '"><button type="button" class="beb"><span class="beb-foto" style="background:radial-gradient(circle at 50% 35%,' + b.fondo + ' 0%,#141416 90%)">' + dibujo(b) + '</span>' +
+    return '<li class="item trago" data-id="' + b.id + '"><button type="button" class="beb"><span class="beb-foto"' + imagenBebida(b) + '</span>' +
       '<strong>' + b.nombre + '</strong><span class="precio">' + plata(b.precio) + '</span></button>' +
       control(b.nombre) + '</li>';
   }).join('');
   $('#lista-combos').innerHTML = COMBOS.map(function (k) {
     var alcohol = k.bebidas.some(function (b) { return bebida(b[0]).grupo === 'cervezas'; });
     return '<li class="item combo" data-id="' + k.id + '"><button type="button" class="combo-card" style="--tinte:' + k.tinte + '">' +
-      '<span class="combo-arte"><img src="img/' + k.foto + '" alt="">' + (k.arte.length ? k.arte.map(function (id) { return dibujo(bebida(id)); }).join('') : '<span class="copo">' + COPO + '</span>') + '</span>' +
+      '<span class="combo-arte"><img class="combo-pizza" src="img/' + k.foto + '" alt="">' +
+      (k.arte.length ? '<span class="combo-latas">' + k.arte.map(function (id) { var b = bebida(id); return b.lata ? '<img src="img/' + b.lata + '" alt="">' : dibujo(b); }).join('') + '</span>' : '<span class="copo">' + COPO + '</span>') + '</span>' +
       '<span class="combo-chips"><span>' + k.etiqueta + '</span>' + (alcohol ? '<span class="mas18">+18</span>' : '') + '</span>' +
       '<strong>' + k.nombre + '</strong><small>' + k.trae + '</small>' +
       '<span class="combo-precio"><b>' + plata(k.precio) + '</b><s>' + plata(listaCombo(k)) + '</s></span></button>' +
       control('combo ' + k.nombre) + '</li>';
   }).join('');
-  todos('[data-arte]').forEach(function (el) {
-    el.innerHTML = el.dataset.arte.split(',').map(function (id) { return dibujo(bebida(id)); }).join('');
-  });
 
   var filasPizza = todos('.pizza'), filasBebida = todos('.bebida'), filasTrago = todos('.trago'), filasCombo = todos('.combo');
   // Pedido: pizzas como "id@servicio" (se pueden mezclar servicios), bebidas por id y combos como "combo:id"
