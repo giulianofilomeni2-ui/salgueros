@@ -1,7 +1,9 @@
 {
+  "id": "./",
   "name": "Salguero's · Pizzas artesanales",
   "short_name": "Salguero's",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
