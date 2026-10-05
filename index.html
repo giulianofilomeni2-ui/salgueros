@@ -95,6 +95,8 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke
 
 /* Barra de arriba: el título chico aparece cuando el grande se va, como en iPhone */
 .nav{position:sticky;top:0;z-index:30;padding-top:env(safe-area-inset-top);transition:background-color .3s ease}
+/* instalada como app, la franja de la hora y la batería queda siempre negra */
+@media (display-mode:standalone){.nav::before{content:"";position:absolute;left:0;right:0;top:0;height:env(safe-area-inset-top);background:#000}}
 .nav.compacta{background:rgba(0,0,0,.86);-webkit-backdrop-filter:blur(20px) saturate(120%);backdrop-filter:blur(20px) saturate(120%)}
 .nav-in{max-width:640px;margin:0 auto;height:56px;padding:0 16px;display:flex;align-items:center;justify-content:space-between}
 .nav-titulo{display:flex;align-items:center;gap:10px;text-decoration:none;opacity:0;transform:translateY(6px);transition:opacity .3s ease,transform .3s var(--curva);pointer-events:none}
@@ -162,7 +164,7 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .combo-chips span{padding:4px 10px;border-radius:999px;background:var(--crema);color:#111;font-size:12px;font-weight:600}
 .combo-chips .mas18{background:rgba(0,0,0,.45);color:#fff}
 .combo-card strong{max-width:62%;margin-top:10px;font:400 28px/1 var(--f-marca);color:var(--crema);text-shadow:0 2px 12px rgba(0,0,0,.5)}
-.combo-card small{max-width:56%;margin-top:6px;font-size:14px;line-height:1.3;color:var(--texto2)}
+.combo-card small{max-width:calc(100% - 126px);margin-top:6px;font-size:14px;line-height:1.3;color:var(--texto2)}
 .combo-precio{display:flex;align-items:baseline;gap:8px;margin-top:auto}
 .combo-precio b{font:600 20px/1 var(--f-ui);color:#fff}
 .combo-precio s{font-size:14px;color:var(--texto3)}
@@ -417,6 +419,7 @@ footer{max-width:640px;margin:40px auto 0;padding:0 16px calc(110px + env(safe-a
   .ficha .lema{font-size:11px;letter-spacing:.2em;padding-left:.2em}
   .combo{flex-basis:86%}
   .combo-arte{right:-28px;width:120px;height:120px}
+  .combo-card small{max-width:calc(100% - 98px)}
   .combo-pizza{width:112px;height:112px}
   .combo-latas{bottom:30px}
   .combo-latas > *{height:60px}
@@ -424,6 +427,10 @@ footer{max-width:640px;margin:40px auto 0;padding:0 16px calc(110px + env(safe-a
 }
 @media (min-width:700px){
   .titulo{font-size:34px}
+  /* en compu las promos van de a dos, todas a la vista */
+  .combos{flex-wrap:wrap;margin:0;padding:0;overflow:visible}
+  .combos::after{display:none}
+  .combo{flex:0 0 calc(50% - 6px)}
   .hoja{margin:auto;max-height:88vh}
   .hoja-in{border-radius:30px;max-height:88vh}
   @keyframes subir{from{transform:translateY(40px);opacity:0}}
