@@ -31,11 +31,15 @@
   "@context": "https://schema.org",
   "@type": "FoodEstablishment",
   "name": "Salguero's",
+  "url": "https://giulianofilomeni2-ui.github.io/salgueros/",
+  "image": "https://giulianofilomeni2-ui.github.io/salgueros/img/compartir.jpg",
+  "logo": "https://giulianofilomeni2-ui.github.io/salgueros/img/icono-512.png",
   "description": "Pizzas artesanales de horno pizzero: para comer ya o congeladas para el freezer. Muzza, jamón y muzza, roquefort y fugazzetta. Entregas en Nueva Córdoba y alrededores.",
   "telephone": "+54 9 351 665-5499",
   "servesCuisine": "Pizza",
   "priceRange": "$1.500 - $40.500",
   "currenciesAccepted": "ARS",
+  "paymentAccepted": "Efectivo, Transferencia",
   "address": { "@type": "PostalAddress", "addressLocality": "Córdoba", "addressRegion": "Córdoba", "addressCountry": "AR" },
   "areaServed": { "@type": "Place", "name": "Nueva Córdoba, Córdoba, Argentina" },
   "hasMenu": {
@@ -334,6 +338,11 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .enviado .boton{width:100%;margin-top:12px}
 .enviado .boton:first-of-type{margin-top:28px}
 .boton.secundario{background:var(--relleno)}
+.avisos-card{display:flex;align-items:center;gap:12px;margin-top:22px;padding:14px;border-radius:var(--radio);background:var(--celda);text-align:left}
+.avisos-card .rotulo{flex:1;min-width:0}
+.avisos-card strong{display:block;font-weight:500}
+.avisos-card small{display:block;margin-top:2px;font-size:14px;line-height:1.35;color:var(--texto2)}
+.avisos-card .pill{flex:none;height:34px;padding:0 14px;font-size:13px}
 .enlace{display:inline-block;margin-top:18px;color:var(--rojo-texto);font-size:15px;text-decoration:none}
 /* Aviso de promo en Tu pedido: cuánto sale la próxima o cuánto se ahorran */
 .aviso{margin-top:12px;padding:14px 16px;border-radius:var(--radio);background:linear-gradient(135deg,#d8130f 0%,#8e0a0b 100%);box-shadow:0 16px 32px -16px rgba(207,13,15,.8);color:#fff}
@@ -393,7 +402,6 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke
 a.fila{text-decoration:none;padding-right:14px}
 a.fila:active{background:rgba(255,255,255,.06)}
 .fila .chevron{width:16px;height:16px;color:var(--texto3);stroke-width:2.6}
-.fila.apagada .rotulo{color:var(--texto2)}
 
 footer{max-width:640px;margin:40px auto 0;padding:0 16px calc(110px + env(safe-area-inset-bottom));text-align:center;color:var(--texto3);font-size:13px}
 
@@ -443,6 +451,7 @@ footer{max-width:640px;margin:40px auto 0;padding:0 16px calc(110px + env(safe-a
   <a role="menuitem" href="#quienes">Quiénes somos <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19.5c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><circle cx="16.8" cy="9" r="2.5"/><path d="M15.6 14.2c2.4-.3 4.4 1.3 4.9 4.3"/></svg></a>
   <a role="menuitem" href="#" data-instagram target="_blank" rel="noopener">Instagram <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/></svg></a>
   <a role="menuitem" href="https://wa.me/5493516655499" data-wa-simple target="_blank" rel="noopener">WhatsApp <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2Z"/></svg></a>
+  <button type="button" role="menuitem" id="avisos" hidden>Avisos de promos <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15Z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg></button>
   <button type="button" role="menuitem" id="instalar">Instalar app <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M12 7v7M9 11l3 3 3-3"/></svg></button>
   <button type="button" role="menuitem" id="compartir">Compartir <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M7 11H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-1"/></svg></button>
 </div>
@@ -633,6 +642,11 @@ footer{max-width:640px;margin:40px auto 0;padding:0 16px calc(110px + env(safe-a
         <h3>¡Pedido enviado!</h3>
         <p>Se abrió WhatsApp con tu pedido. Si todavía no lo mandaste, tocá enviar ahí y te respondemos para confirmar.</p>
         <p class="enviado-resumen" id="enviado-resumen"></p>
+        <div class="avisos-card" id="avisos-card" hidden>
+          <span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15Z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg></span>
+          <span class="rotulo"><strong>¿Te avisamos de las promos?</strong><small>Te llega una notificación cuando haya algo nuevo.</small></span>
+          <button type="button" class="pill" id="avisos-si">Activar</button>
+        </div>
         <button type="button" class="boton" id="otro-pedido">Hacer otro pedido</button>
         <button type="button" class="boton secundario" id="volver-al-pedido">Volver al pedido</button>
         <a class="enlace" id="reabrir" href="https://wa.me/5493516655499" target="_blank" rel="noopener">¿No se abrió WhatsApp? Abrilo de nuevo</a>
@@ -703,6 +717,7 @@ footer{max-width:640px;margin:40px auto 0;padding:0 16px calc(110px + env(safe-a
       <li><span class="ico">1</span><span>Abrí el menú del navegador <b>⋮</b></span></li>
       <li><span class="ico">2</span><span>Elegí <b>Instalar app</b> o <b>Agregar a pantalla principal</b>.</span></li>
     </ol>
+    <p class="hoja-info" id="instalar-nota" hidden>En iPhone, los avisos de promos llegan solo con la app agregada al inicio.</p>
     <button type="button" class="boton ancho" id="instalar-ok">Entendido</button>
   </div>
 </dialog>
@@ -728,6 +743,8 @@ footer{max-width:640px;margin:40px auto 0;padding:0 16px calc(110px + env(safe-a
   var AGOTADOS = [];
   // Contador anónimo de visitas y pedidos: el "Website ID" del sitio en Umami (cloud.umami.is). Vacío = no cuenta.
   var UMAMI = '';
+  // Avisos de promos (notificaciones con OneSignal, onesignal.com): el "App ID". Vacío = no se ofrecen.
+  var ONESIGNAL = '';
   var SALUDO = "Hola Salguero's! Quiero consultar por las pizzas.";
   var MAXIMO = 30;
 
@@ -923,18 +940,12 @@ footer{max-width:640px;margin:40px auto 0;padding:0 16px calc(110px + env(safe-a
   var abierta = null; // pizza con la hoja abierta: { p, modo, clave }
 
   todos('[data-wa-simple]').forEach(function (a) { a.href = wa(SALUDO); });
+  // Instagram y reseñas aparecen solos cuando se completan sus links; mientras tanto no se muestran
   todos('[data-instagram]').forEach(function (a) {
-    if (INSTAGRAM) a.href = INSTAGRAM;
-    else a.addEventListener('click', function (e) { e.preventDefault(); avisar('Instagram: muy pronto'); });
+    if (INSTAGRAM) a.href = INSTAGRAM; else a.hidden = true;
   });
-
   var resena = $('#resena');
-  if (GOOGLE.resenas) { resena.href = GOOGLE.resenas; }
-  else {
-    resena.removeAttribute('href'); resena.classList.add('apagada');
-    resena.querySelector('.rotulo').textContent = 'Reseñas en Google: muy pronto';
-    resena.querySelector('.chevron').remove();
-  }
+  if (GOOGLE.resenas) resena.href = GOOGLE.resenas; else resena.hidden = true;
   if (GOOGLE.perfil) todos('[data-mapa]').forEach(function (a) { a.href = GOOGLE.perfil; });
 
   $('#compartir').addEventListener('click', function () {
@@ -1527,17 +1538,51 @@ footer{max-width:640px;margin:40px auto 0;padding:0 16px calc(110px + env(safe-a
 
   // Instalar la web como app: en Android y Chrome usa el aviso del navegador; si no, explica los pasos
   var avisoInstalar = null, botonInstalar = $('#instalar');
-  botonInstalar.hidden = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  var instalada = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  var esIos = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  botonInstalar.hidden = instalada;
   addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); avisoInstalar = e; });
   addEventListener('appinstalled', function () { botonInstalar.hidden = true; avisoInstalar = null; avisar('¡Listo! Ya tenés la app'); contar('app-instalada'); });
-  botonInstalar.addEventListener('click', function () {
-    contar('instalar-app');
-    if (avisoInstalar) { avisoInstalar.prompt(); avisoInstalar = null; return; }
-    var ios = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    $('#pasos-ios').hidden = !ios;
-    $('#pasos-otros').hidden = ios;
+  function instalar(paraAvisos) {
+    if (avisoInstalar && !paraAvisos) { avisoInstalar.prompt(); avisoInstalar = null; return; }
+    $('#pasos-ios').hidden = !esIos;
+    $('#pasos-otros').hidden = esIos;
+    $('#instalar-nota').hidden = !paraAvisos;
     mostrarHoja(hojaInstalar);
-  });
+  }
+  botonInstalar.addEventListener('click', function () { contar('instalar-app'); instalar(false); });
+
+  // Avisos de promos: se piden con un botón (nunca solos al entrar). En iPhone primero hay que instalar la app.
+  var conPush = 'Notification' in window && 'PushManager' in window && 'serviceWorker' in navigator;
+  function mostrarAvisos() {
+    var ver = !!ONESIGNAL && (conPush ? Notification.permission === 'default' : esIos && !instalada);
+    $('#avisos').hidden = !ver;
+    $('#avisos-card').hidden = !ver;
+  }
+  function pedirAvisos() {
+    contar('avisos-pedidos');
+    if (!conPush) { instalar(true); return; }
+    window.OneSignalDeferred.push(function (OneSignal) {
+      return OneSignal.Notifications.requestPermission().then(function () {
+        mostrarAvisos();
+        if (Notification.permission === 'granted') { avisar('¡Listo! Te avisamos de las promos'); contar('avisos-activados'); }
+      });
+    });
+  }
+  if (ONESIGNAL) {
+    // la web vive en una carpeta (/salgueros/): el service worker de los avisos es el mismo sw.js
+    var carpeta = location.pathname.replace(/[^/]*$/, '');
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    var oneSignalJs = document.createElement('script');
+    oneSignalJs.defer = true; oneSignalJs.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
+    document.head.appendChild(oneSignalJs);
+    window.OneSignalDeferred.push(function (OneSignal) {
+      return OneSignal.init({ appId: ONESIGNAL, serviceWorkerPath: carpeta.slice(1) + 'sw.js', serviceWorkerParam: { scope: carpeta } });
+    });
+  }
+  mostrarAvisos();
+  $('#avisos').addEventListener('click', pedirAvisos);
+  $('#avisos-si').addEventListener('click', pedirAvisos);
   $('#instalar-ok').addEventListener('click', function () { ocultarHoja(hojaInstalar); });
   if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
     navigator.serviceWorker.register('sw.js').catch(function () {});
