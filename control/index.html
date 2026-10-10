@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Ventas">
+<title>Salguero's · Stock y ventas</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icono-192.png">
+<link rel="apple-touch-icon" href="icono-180.png">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* Acceso directo a la app interna de stock y ventas (vive en claude.ai). Instalada en el celu, abre la app directo. */
+  :root{--negro:#000;--celda:#1c1c1e;--texto:#fff;--texto2:rgba(235,235,245,.64);--rojo:#cf0d0f;--crema:#fcf1e0;--f-ui:'Fredoka',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+  html,body{margin:0;background:var(--negro);color:var(--texto);font:400 17px/1.45 var(--f-ui)}
+  main{max-width:420px;margin:0 auto;padding:calc(40px + env(safe-area-inset-top)) 20px 40px;display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center}
+  img{width:132px;height:132px;border-radius:30px}
+  h1{margin:0;font-weight:600;font-size:26px;line-height:1.15}
+  p{margin:0;color:var(--texto2)}
+  .boton{display:block;width:100%;box-sizing:border-box;background:var(--rojo);color:#fff;text-decoration:none;font-weight:600;font-size:18px;padding:16px 20px;border-radius:999px}
+  .boton:focus-visible{outline:2px solid var(--crema);outline-offset:3px}
+  .pasos{background:var(--celda);border-radius:20px;padding:16px 18px;text-align:left;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:10px}
+  .pasos b{color:var(--crema);font-weight:500}
+  .pasos p{font-size:15px}
+  [hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+  <img src="icono-512.png" alt="">
+  <h1>Salguero's<br>Stock y ventas</h1>
+  <p id="abriendo" hidden>Abriendo la app…</p>
+  <a class="boton" id="abrir" href="https://claude.ai/artifact/CxnCR7cyoNVzgERjk3JvNi">Abrir la app</a>
+  <div class="pasos" id="pasos">
+    <p><b>Para tenerla en la pantalla del celu</b></p>
+    <p><b>iPhone (Safari):</b> tocá el botón de compartir y después “Agregar a inicio”.</p>
+    <p><b>Android (Chrome):</b> tocá los tres puntitos ⋮ y después “Agregar a la pantalla principal” o “Instalar app”.</p>
+    <p>Es solo para Giuliano y Ger: la app pide entrar con la cuenta de Claude.</p>
+  </div>
+</main>
+<script>
+  // Abierta desde el ícono del celu: va directo a la app.
+  var instalada = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true || location.search.indexOf('app') !== -1;
+  if (instalada) {
+    document.getElementById('abriendo').hidden = false;
+    document.getElementById('pasos').hidden = true;
+    location.replace(document.getElementById('abrir').href);
+  }
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('../sw.js', { scope: '../' }).catch(function () {});
+</script>
+</body>
+</html>
